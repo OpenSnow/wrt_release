@@ -37,7 +37,6 @@ COMMIT_HASH=$4
 FEEDS_CONF="feeds.conf.default"
 GOLANG_REPO="https://github.com/sbwml/packages_lang_golang"
 GOLANG_BRANCH="25.x"
-THEME_SET="argon"
 LAN_ADDR="192.168.1.1"
 
 clone_repo() {
@@ -243,10 +242,6 @@ install_feeds() {
 }
 
 fix_default_set() {
-    # 修改默认主题
-    if [ -d "$BUILD_DIR/feeds/luci/collections/" ]; then
-        find "$BUILD_DIR/feeds/luci/collections/" -type f -name "Makefile" -exec sed -i "s/luci-theme-bootstrap/luci-theme-$THEME_SET/g" {} \;
-    fi
 
     install -Dm544 "$BASE_PATH/patches/990_set_argon_primary" "$BUILD_DIR/package/base-files/files/etc/uci-defaults/990_set_argon_primary"
     install -Dm544 "$BASE_PATH/patches/991_custom_settings" "$BUILD_DIR/package/base-files/files/etc/uci-defaults/991_custom_settings"
